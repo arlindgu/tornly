@@ -39,8 +39,7 @@ const sidebarLinks: GroupLink[] = [
     name: "Profile",
     href: "/profile",
     SubLinks: [
-        { name: "Overview", href: "/profile/overview" 
-        },
+        { name: "Overview", href: "/dashboard/profile/overview" },
         { name: "Stats", href: "/profile/battlestats" },
 
     ],

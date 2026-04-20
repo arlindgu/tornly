@@ -18,9 +18,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${GeistSans.variable} ${GeistPixelSquare.variable} ${GeistMono.variable} dark`}
+      className={`antialiased ${GeistSans.variable} ${GeistPixelSquare.variable} ${GeistMono.variable} dark`}
     >
-      <body className="min-h-full flex flex-col">
+      <body>
         <main>{children}</main>
         <Toaster />
       </body>
