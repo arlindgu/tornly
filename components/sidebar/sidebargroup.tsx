@@ -11,6 +11,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import {
   Collapsible,
@@ -35,36 +36,14 @@ const sidebarLinks: GroupLink[] = [
     name: "Dashboard",
     href: "/dashboard",
     },
-  {
+    {
+      name: "Performance",
+      href: "/dashboard/performance",
+    },
+    {
     name: "Profile",
     href: "/profile",
-    SubLinks: [
-        { name: "Overview", href: "/dashboard/profile/overview" },
-        { name: "Stats", href: "/profile/battlestats" },
-
-    ],
-  },
-  {
-    name: "Faction",
-    href: "/faction",
     },
-    {
-        name: "Market",
-        href: "/market",
-    },
-    {
-        name: "Racing",
-        href: "/racing",
-    },
-    {
-        name: "Forum",
-        href: "/forum",
-    },
-    {
-        name: "Property",
-        href: "/property",
-    },
-
 ];
 
 export function SidebarNavigation() {

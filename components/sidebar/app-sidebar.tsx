@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import { SidebarNavigation } from "./sidebargroup";
+import SidebarProfile from "./sidebarfooter";
 
 export function AppSidebar() {
     const pathname = usePathname();
@@ -19,7 +20,9 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarNavigation />
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter>
+        <SidebarProfile />
+      </SidebarFooter>
     </Sidebar>
   );
 }

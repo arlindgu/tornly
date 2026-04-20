@@ -2,7 +2,7 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";

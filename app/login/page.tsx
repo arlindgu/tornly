@@ -1,10 +1,31 @@
-import LoginField from "@/components/login/LoginField";
+import { Type } from "lucide-react";
+import { LoginForm } from "@/components/login/LoginField";
 
 export default function LoginPage() {
-    return (
-      <section className="h-screen flex flex-col justify-center items-center">
-        <h1 className="text-5xl uppercase font-heading mb-8">Tornly</h1>
-        <LoginField />
-      </section>
-    );
+  return (
+    <div className="grid min-h-svh lg:grid-cols-2">
+      <div className="flex flex-col gap-4 p-6 md:p-10">
+        <div className="flex justify-center gap-2 md:justify-start">
+          <a href="#" className="flex items-center gap-2 font-medium">
+            <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
+              <Type className="size-4" />
+            </div>
+            TORNLY
+          </a>
+        </div>
+        <div className="flex flex-1 items-center justify-center">
+          <div className="w-full max-w-xs">
+            <LoginForm />
+          </div>
+        </div>
+      </div>
+      <div className="relative hidden bg-muted lg:block">
+        <img
+          src="https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Image"
+          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        />
+      </div>
+    </div>
+  );
 }

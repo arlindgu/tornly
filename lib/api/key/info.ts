@@ -1,7 +1,7 @@
 "use server"
 
 import { tornFetch } from "../client";
-import { isTornError, TornResponse } from "../errors/errors";
+import { TornResponse } from "../errors/errors";
 
 export interface KeyInfoResponse {
     info: Info

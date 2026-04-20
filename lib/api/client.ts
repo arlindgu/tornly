@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
-import { isTornError, TornResponse } from "./errors/errors";
-import { toast } from "sonner";
+import { TornResponse } from "./errors/errors";
 
 
 interface TornFetchParams {
@@ -26,6 +25,32 @@ export async function tornFetch<T>(
         if (value !== undefined) url.searchParams.set(key, value.toString());
     });
 
-    const res = await fetch(url.toString());
-    return res.json(); // ✅ einfach zurückgeben — ist entweder T oder TornAPIErrorResponse
+    try {
+        const res = await fetch(url.toString());
+        const json = await res.json();
+
+        // ✅ Prüfe ob es ein Error von Torn ist
+        if ('error' in json && json.error !== null) {
+            return {
+                data: null,
+                error: json.error  // TornAPIError object
+            };
+        }
+
+        // ✅ Success - gib data zurück
+        return {
+            data: json as T,
+            error: null
+        };
+
+    } catch (error) {
+        // ✅ Network/Parse Error
+        return {
+            data: null,
+            error: {
+                code: 0,
+                error: error instanceof Error ? error.message : 'Unknown error'
+            }
+        };
+    }
 }
