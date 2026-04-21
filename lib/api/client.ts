@@ -1,3 +1,5 @@
+"use server"
+
 import { cookies } from "next/headers";
 import { TornResponse } from "./errors/errors";
 
@@ -16,7 +18,6 @@ export async function tornFetch<T>(
     const apiKey = cookieStore.get("tornly:apikey")?.value;
 
     const url = new URL(`https://api.torn.com/v2/${baseParams.endpoint}`);
-    url.searchParams.set("key", apiKey!);
 
     if (baseParams.timestamp) url.searchParams.set("timestamp", baseParams.timestamp.toString());
     if (baseParams.comment) url.searchParams.set("comment", baseParams.comment);
@@ -26,7 +27,11 @@ export async function tornFetch<T>(
     });
 
     try {
-        const res = await fetch(url.toString());
+        const res = await fetch(url.toString(), {
+            headers: {
+                "Authorization": `ApiKey ${apiKey}`
+            }
+        });
         const json = await res.json();
 
         // ✅ Prüfe ob es ein Error von Torn ist
@@ -54,3 +59,5 @@ export async function tornFetch<T>(
         };
     }
 }
+
+

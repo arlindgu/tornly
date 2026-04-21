@@ -4,7 +4,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export function CardSkeleton() {
   return (
-    <Card>
+    <Card className="flex-1">
       <CardHeader>
         <Skeleton className="h-6 w-24" /> {/* Title */}
         <Skeleton className="h-4 w-48" /> {/* Description */}
