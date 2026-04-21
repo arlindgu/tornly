@@ -3,12 +3,12 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
 import BreadcrumbHeader from "@/components/layout/breadcrumb-header";
 
-const metadata: Metadata = {
+export const metadata: Metadata = {
   title: "Dashboard",
   description: "User dashboard with profile, faction, market, and racing information.",
 };
