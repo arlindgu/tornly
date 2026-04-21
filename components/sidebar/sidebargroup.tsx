@@ -37,16 +37,8 @@ const sidebarLinks: GroupLink[] = [
     href: "/dashboard",
     },
     {
-      name: "Performance",
-      href: "/dashboard/performance",
-    },
-    {
       name: "Money",
       href: "/dashboard/money",
-    },
-    {
-    name: "Profile",
-    href: "/profile",
     },
 ];
 
