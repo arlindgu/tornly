@@ -1,15 +1,18 @@
+
+
 import GreetingMessage from "@/components/dashboard/GreetingMessage";
 import { Suspense } from "react";
 import { CardSkeleton } from "@/components/skeleton/CardSkeleton";
 import BarsCard from "@/components/dashboard/BarsCard";
 import getUserBars from "@/lib/api/user/bars";
 import { isSuccess } from "@/lib/api/errors/errors";
-import { toast } from "sonner";
-import { Zap, FingerprintPattern, Smile, Heart, Link   } from "lucide-react"
+import { Zap, FingerprintPattern, Smile, Heart   } from "lucide-react"
 import StatusCard from "@/components/dashboard/StatusCard";
 import BattlestatsCard from "@/components/dashboard/BattlestatsCard";
+import { initDB } from "@/lib/db";
 
 export default async function DashboardPage() {
+
     const userBars = await getUserBars();
 
     if (!isSuccess(userBars)) {

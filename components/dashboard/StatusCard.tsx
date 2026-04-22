@@ -1,8 +1,6 @@
 import { Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import getUserIcons, { Icon } from "@/lib/api/user/icons";
-import getTornLogtypes from "@/lib/api/torn/logtypes";
-import getTornLogcategories from "@/lib/api/torn/logcategories";
 
 export default async function StatusCard() {
     const userStatus = await getUserIcons();

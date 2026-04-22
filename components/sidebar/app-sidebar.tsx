@@ -9,9 +9,11 @@ import {
 import { usePathname } from "next/navigation";
 import { SidebarNavigation } from "./sidebargroup";
 import SidebarProfile from "./sidebarfooter";
+import { initDB } from "@/lib/db";
 
 export function AppSidebar() {
     const pathname = usePathname();
+    initDB(); // Initialize the database when the sidebar component mounts
 
 
   return (

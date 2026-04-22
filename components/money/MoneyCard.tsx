@@ -1,28 +1,26 @@
 "use client";
 
 import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../../lib/db";
+import { db } from "@/lib/db";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Log } from "../../lib/api/user/log";
-import { useLogs } from "@/hooks/useLogs";
+import { Log } from "@/lib/api/user/log";
+import { useLogs } from "@/hooks/use-logs";
 import { Skeleton } from "../ui/skeleton";
 import CountUp from "react-countup";
-import { Button } from "../ui/button";
-import { RefreshCcw } from "lucide-react";
+import { initDB } from "@/lib/db";
 
 export interface MoneyCardProps<D, P> {
   title: string;
   description: string;
   logKey: keyof typeof db;
   sumField: keyof D;
-  logsToFetch: number; // Optional: Anzahl der Logs, die angezeigt werden sollen
+  logsToFetch: number;
 }
 
 export default function MoneyCard<D, P>({
@@ -32,12 +30,12 @@ export default function MoneyCard<D, P>({
   logKey,
   sumField,
 }: MoneyCardProps<D, P>) {
+  const { isLoading } = useLogs<D, P>({ logsToFetch });
+
   const logs = useLiveQuery(() => {
     const table = db[logKey] as any;
     return table.toArray();
-  });
-
-    const { isLoading, isSynced } = useLogs<D, P>({ logsToFetch });
+  }, [logKey]); // ← Dependency hinzufügen!
 
   const total =
     logs?.reduce((sum: number, log: Log<D, P>) => {
@@ -45,7 +43,7 @@ export default function MoneyCard<D, P>({
       return sum + (typeof value === "number" ? value : 0);
     }, 0) || 0;
 
-  if (isLoading) {
+  if (isLoading || !logs) {
     return (
       <Card>
         <CardHeader>
@@ -67,25 +65,21 @@ export default function MoneyCard<D, P>({
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        {!logs ? (
-          <>
-            <Skeleton className="h-9 w-1/2 mb-4" />
-            <Skeleton className="h-3 w-1/4" />
-          </>
-        ) : (
-          <div>
-            <p key={total} className="text-3xl font-bold [animation:countup-blur_1.2s_ease-out_forwards]">
-              <CountUp
-                end={total}
-                duration={1.2}
-                separator=","
-                prefix="$"
-                useEasing={true}
-              />
-            </p>
-            <p className="text-sm text-muted-foreground mt-2">{logs.length} payments</p>
-          </div>
-        )}
+        <div>
+          <p className="text-3xl font-bold [animation:countup-blur_1.2s_ease-out_forwards]">
+            <CountUp
+              key={total} // ← Key triggert Re-animation bei Änderung
+              end={total}
+              duration={1.2}
+              separator=","
+              prefix="$"
+              useEasing={true}
+            />
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            {logs.length} payments
+          </p>
+        </div>
       </CardContent>
     </Card>
   );

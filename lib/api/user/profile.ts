@@ -41,10 +41,10 @@ export interface Property {
 
 export interface Status {
     description: string
-    details: any
+    details: string
     state: string
     color: string
-    until: any
+    until: number
 }
 
 export interface Spouse {

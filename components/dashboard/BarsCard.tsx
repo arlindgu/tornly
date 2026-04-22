@@ -1,4 +1,3 @@
-import getUserBars from "@/lib/api/user/bars";
 import { Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Happy, Energy, Nerve, Life } from "@/lib/api/user/bars";
 import { Progress } from "../ui/progress";

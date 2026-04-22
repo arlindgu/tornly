@@ -8,7 +8,7 @@ export default function Home() {
       {/* Content */}
       <div className="flex flex-1 flex-col justify-center px-16 md:px-24 lg:px-32 max-w-5xl">
         <h1 className="text-5xl md:text-6xl font-semibold leading-[1.08] tracking-tight text-foreground max-w-2xl">
-          The dashboard every Citizen needs, but doesn't deserve.
+          The dashboard every Citizen needs, but does not deserve.
         </h1>
 
         <div className="mt-5 flex flex-col sm:items-start gap-4">

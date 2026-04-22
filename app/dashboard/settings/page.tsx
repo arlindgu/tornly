@@ -4,8 +4,8 @@ import SliderCard from "@/components/settings/SliderCard";
 import APICard from "@/components/settings/APICard";
 
 export default async function SettingsPage() {
-    let apiKey = await getCookie("tornly:apikey")
-    let rpm = await getCookie("tornly:rpm")
+    const apiKey = await getCookie("tornly:apikey")
+    const rpm = await getCookie("tornly:rpm")
 
     return (
       <main className="flex flex-col gap-6">

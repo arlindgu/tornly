@@ -8,7 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import React from "react";
 

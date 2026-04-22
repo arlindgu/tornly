@@ -57,7 +57,7 @@ export default function PatchNotes() {
           Patch notes
         </h1>
         <p className="text-sm text-muted-foreground mb-12">
-          What's changed in Tornly.
+          What has changed in Tornly.
         </p>
 
         <div className="space-y-10">

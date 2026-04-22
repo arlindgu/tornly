@@ -1,291 +1,49 @@
-const logTypes = [
-        {
-            "id": 1104,
-            "title": "Item market sell (old)"
-    },
-        {
-            "id": 1113,
-            "title": "Item market sell"
-    },
-        {
-            "id": 1221,
-            "title": "Bazaar sell (legacy)"
-    },
-        {
-            "id": 1226,
-            "title": "Bazaar sell"
-    },
-        {
-            "id": 2405,
-            "title": "Item use wallet"
-    },
-        {
-            "id": 2407,
-            "title": "Item use stash box"
-    },
-        {
-            "id": 4210,
-            "title": "Item shop sell"
-    },
-        {
-            "id": 4220,
-            "title": "Item shop sell points"
-    },
-        {
-            "id": 4441,
-            "title": "Trade money incoming"
-    },
-        {
-            "id": 4510,
-            "title": "Ammo sell"
-    },
-        {
-            "id": 4810,
-            "title": "Money receive"
-    },
-        {
-            "id": 5011,
-            "title": "Points market sell"
-    },
-        {
-            "id": 5451,
-            "title": "Bank withdraw"
-    },
-        {
-            "id": 5460,
-            "title": "Cashiers check withdraw"
-    },
-        {
-            "id": 5511,
-            "title": "Stock sell"
-    },
-        {
-            "id": 5531,
-            "title": "Stock special money"
-    },
-        {
-            "id": 5720,
-            "title": "Crime success money gain"
-    },
-        {
-            "id": 5928,
-            "title": "Property sell"
-    },
-        {
-            "id": 5937,
-            "title": "Property rental market rent owner"
-    },
-        {
-            "id": 5943,
-            "title": "Property rental market extension accept owner"
-    },
-        {
-            "id": 6012,
-            "title": "Offshore bank interest"
-    },
-        {
-            "id": 6020,
-            "title": "Hunting"
-    },
-        {
-            "id": 6200,
-            "title": "Loan increase"
-    },
-        {
-            "id": 6220,
-            "title": "Job pay"
-    },
-        {
-            "id": 6221,
-            "title": "Company employee pay"
-    },
-        {
-            "id": 6285,
-            "title": "Company withdraw"
-    },
-        {
-            "id": 6300,
-            "title": "Company sell"
-    },
-        {
-            "id": 6404,
-            "title": "Job special gain money"
-    },
-        {
-            "id": 6407,
-            "title": "Job special class action lawsuit"
-    },
-        {
-            "id": 6509,
-            "title": "Company special gain money"
-    },
-        {
-            "id": 6539,
-            "title": "Company special use intricate hack"
-    },
-        {
-            "id": 6549,
-            "title": "Company special use logistics report"
-    },
-        {
-            "id": 6708,
-            "title": "Bounty refund"
-    },
-        {
-            "id": 6710,
-            "title": "Bounty claim"
-    },
-        {
-            "id": 6736,
-            "title": "Faction give money receive"
-    },
-        {
-            "id": 6754,
-            "title": "Faction money receive ownership"
-    },
-        {
-            "id": 6793,
-            "title": "Faction payout money receive"
-    },
-        {
-            "id": 6811,
-            "title": "Faction payday receive"
-    },
-        {
-            "id": 7125,
-            "title": "Image advert refund"
-    },
-        {
-            "id": 7815,
-            "title": "Missions complete"
-    },
-        {
-            "id": 8155,
-            "title": "Attack mug"
-    },
-        {
-            "id": 8165,
-            "title": "Attack arrest"
-    },
-        {
-            "id": 8300,
-            "title": "Casino slots win"
-    },
-        {
-            "id": 8305,
-            "title": "Casino roulette win"
-    },
-        {
-            "id": 8314,
-            "title": "Casino high-low cash in full"
-    },
-        {
-            "id": 8315,
-            "title": "Casino high-low cash in half"
-    },
-        {
-            "id": 8320,
-            "title": "Casino keno win"
-    },
-        {
-            "id": 8331,
-            "title": "Casino craps win"
-    },
-        {
-            "id": 8355,
-            "title": "Casino blackjack win"
-    },
-        {
-            "id": 8357,
-            "title": "Casino blackjack insurance win"
-    },
-        {
-            "id": 8358,
-            "title": "Casino blackjack push"
-    },
-        {
-            "id": 8359,
-            "title": "Casino blackjack surrender"
-    },
-        {
-            "id": 8374,
-            "title": "Casino spin the wheel win money"
-    },
-        {
-            "id": 8395,
-            "title": "Casino russian roulette win"
-    },
-        {
-            "id": 8399,
-            "title": "Casino russian roulette timeout refund"
-    },
-        {
-            "id": 8400,
-            "title": "Casino russian roulette leave"
-    },
-        {
-            "id": 8411,
-            "title": "Casino poker table leave"
-    },
-        {
-            "id": 8413,
-            "title": "Casino poker tournament unregister"
-    },
-        {
-            "id": 8444,
-            "title": "Casino poker tournament winnings"
-    },
-        {
-            "id": 8455,
-            "title": "Bookie withdraw"
-    },
-        {
-            "id": 8465,
-            "title": "Bookie withdraw (new)"
-    },
-        {
-            "id": 8741,
-            "title": "Racing receive refund"
-    },
-        {
-            "id": 8940,
-            "title": "Christmas town money"
-    },
-        {
-            "id": 8960,
-            "title": "Easter egg hunt pickup blue egg (legacy)"
-    },
-        {
-            "id": 9015,
-            "title": "Crime success money gain (new)"
-    },
-        {
-            "id": 9052,
-            "title": "Crime success bootlegging sell DVDs"
-    },
-        {
-            "id": 9056,
-            "title": "Crime success skimming sell card details"
-    }
-    ] as const
 
-export interface ItemMarketSellOldData { //1104
-
+export interface Log1104Data { // Item market sell (old)
+    buyer: number
+    item: number | [
+        {
+            id: number,
+            uid: any,
+            qty: number
+        }
+    ]
+    cost: number
 }
 
-export interface ItemMarketSellData { //1113
-
+export interface Log1113Data { // Item market sell
+    buyer: number
+    anonymous: number
+    items: [
+        {
+            id: number,
+            uid: any,
+            qty: number
+        }
+    ]
+    cost_total: number
+    fee: number
+    cost_each: number
 }
 
-export interface BazaarSellLegacyData { //1221
-
+export interface Log1221Data { // Bazaar sell (legacy)
+    buyer: number
+    item: number
+    quantity: number
+    cost_each: number
+    cost_total: number
 }
 
-export interface BazaarSellData { //1226
-
+export interface Log1226Data { // Bazaar sell
+    buyer: number
+    items: [
+        {id: number, uid: number, qty: number }
+    ]
+    cost_each: number
+    cost_total: number
 }
 
-export interface ItemUseWalletData {
+export interface Log2405Data { // Item use wallet
     item: number
     faction: number
     items: [
@@ -296,34 +54,42 @@ export interface ItemUseWalletData {
     money: number
 }
 
-export interface ItemUseStashBoxData {
+export interface Log2407Data { // Item use stash box
+    item: number
+    faction: number
+    money: number
 }
 
-export interface ItemShopSellData {
+export interface Log4210Data { // Item shop sell
+    item: number
+    quantity: number
+    value_each: number
+    total_value: number
+}
+
+export interface Log4220Data { // Item shop sell points
+    quantity: number
+    value_each: number
+    total_value: number
+}
+
+export interface Log4441Data { // Trade money incoming
 
 }
 
-export interface ItemShopSellPointsData {
-    
-}
-
-export interface TradeMoneyIncomingData {
-
-}
-
-export interface AmmoSellData {
+export interface Log4510Data { // Ammo sell
 
 }
 
 
-export interface MoneyReceiveData {
+export interface Log4810Data { // Money receive
     sender: number
     anonymous: number
     money: number
     message: string
 }
 
-export interface PointsMarketSellData {
+export interface Log5011Data { // Points market sell
     buyer: number
     quantity: number
     cost_each: number
@@ -331,115 +97,122 @@ export interface PointsMarketSellData {
     listing_id: number
 }
 
-export interface BankWithdrawData {
+export interface Log5451Data { // Bank withdraw
 }
 
-export interface CashiersCheckWithdrawnData {
+export interface Log5460Data { // Cashiers check withdraw
 }
 
-export interface StockSellData {
-
-}
-
-export interface StockSpecialMoney {
+export interface Log5511Data { // Stock sell
 
 }
 
-export interface CrimeSucessMoneyGain {
+export interface Log5531Data { // Stock special money
 
 }
 
-export interface PropertySellData {
-}
-
-export interface PropertyRentalMarketRentOwnerData {
+export interface Log5720Data { // Crime success money gain
 
 }
 
-export interface PropertyRentalMarketExtensionAcceptOwner {
+export interface Log5928Data { // Property sell
+}
+
+export interface Log5937Data { // Property rental market rent owner
 
 }
 
-export interface OffshoreBankInterestData {
+export interface Log5943Data { // Property rental market extension accept owner
+
+}
+
+export interface Log6012Data { // Offshore bank interest
     interest: number
     balance: number
 }
 
-export interface HuntinData{
+export interface Log6020Data { // Hunting
 
 }
 
-export interface LoanIncreaseData {
+export interface Log6200Data { // Loan increase
 
 }
 
-export interface JobPayData {
+export interface Log6220Data { //Job pay
     pay: number
     job_points: number
     working_stats_received: string
     job: number
 }
 
-export interface CompanyEmployeePayData {
+export interface Log6221Data { // Company employee pay
     pay: number
     job_points: number
     working_stats_received: string
     company: number
 }
 
-export interface CompanyWithdrawData {
+export interface Log6285Data { // Company withdraw
 
 }
 
-export interface CompanySellData {
+export interface Log6300Data { // Company sell
 
 }
 
-export interface JobSpecialGainMoney {
+export interface Log6404Data { // Job special gain money
 
 }
 
-export interface JobSpecialClassActionLawsuitData {
+export interface Log6407Data { // Job special class action lawsuit
 
 }
 
-export interface CompanySpecialGainMoney {
+export interface Log6509Data { // Company special gain money
 
 }
 
-export interface CompanySpecialUseIntrticateHackData {
+export interface Log6539Data { // Company special use intricate hack
     
 }
 
-export interface CompanySpecialUseLogisticsReportData {
+export interface Log6549Data { // Company special use logistics report
 
 }
 
-export interface BountyRefundData {
+export interface Log6708Data { // Bounty refund
 
 }
 
-export interface BountyClaimData {
+export interface Log6710Data { // Bounty claim
+    lister: number
+    anonymous: number
+    target: number
+    bounty_reward: number
+}
+
+export interface Log6736Data { // Faction give money receive
 
 }
 
-export interface FactionMoneyReceiveOwnershipData {
+export interface Log6754Data { // Faction money receive ownership
 
 }
 
-export interface FactionPayOutMoneyReceiveData {
-    
-}
-
-export interface FactionPayDayReceiveData {
-    
-}
-
-export interface ImageAdvertRefundData {
+export interface Log6793Data { // Faction pay out money receive
 
 }
 
-export interface MissionsCompleteData {
+export interface Log6811Data { // Faction pay day receive
+
+}
+
+export interface Log7125Data { // Image advert refund
+
+}
+
+export interface Log7815Data { // Missions complete
     type: string;
     agent: number;
     mission: number;
@@ -448,7 +221,7 @@ export interface MissionsCompleteData {
     credits: number;
 }
 
-export interface AttackMugData {
+export interface Log8155Data { // Attack mug
     defender: number
     anonymous: number
     energy_used: number
@@ -458,103 +231,114 @@ export interface AttackMugData {
     log: string
 }
 
-export interface AttackArrestData {
+export interface Log8165Data { // Attack arrest
 
 }
 
-export interface CasinoSlotsWinData {
+export interface Log8300Data { // Casino slots win
 
 }
 
-export interface CasinoRouletteWinData {
+export interface Log8305Data { // Casino roulette win
 
 }
 
-export interface CasinoHighLowCashInFullData {
+export interface Log8314Data { // Casino high low cash in full
 
 }
 
-export interface CasinoHighLowCashInHalfData {
+export interface Log8315Data { // Casino high low cash in half
     
 }   
 
-export interface CasinoKenoWinData {
+export interface Log8320Data { // Casino keno win
 
 }
 
-export interface CasinoBlackjackWinData {
+export interface Log8331Data { // Casino craps win}
+}
+
+export interface Log8355Data { // Casino blackjack win
 
 }
 
-export interface CasinoBlackjackInsuranceWinData {
+export interface Log8357Data { // Casino blackjack insurance win
     
 }
 
-export interface CasinoBlackjackPushWinData {
+export interface Log8358Data { // Casino blackjack push win
     
 }
 
-export interface CasinoBlackjackSurrenderData {
+export interface Log8359Data { // Casino blackjack surrender
     
 }
 
-export interface CasinoRussianRouletteWinData {
+export interface Log8374Data { // Casino russian roulette win
     
 }
 
-export interface CasinoRussianRouletteTimeoutRefundData {
+export interface Log8399Data { // Casino russian roulette timeout refund
     
 }
 
-export interface CasinoRusiaanRouletteLeaveData {
+export interface Log8400Data { // Casino russian roulette leave
 
 }
 
-export interface CasinoPokerTableLeaveData {
+export interface Log8411Data { // Casino poker table leave
 
 }
 
-export interface CasinoPokerTournamentUnregisterData {
+export interface Log8413Data { // Casino poker tournament unregister
     
 }
 
-export interface CasinoPokerTounamentWinningsData {
+export interface Log8444Data { // Casino poker tournament winnings
 
 }
 
-export interface BookieWithdrawData {
+export interface Log8455Data { // Bookie withdraw
 
 }
-
-export interface BookieWithdrawNewData {
+ 
+export interface Log8465Data { // Bookie withdraw new
     
 }
 
-export interface RacingReceiveRefundData {
+export interface Log8741Data { // Racing receive refund
     
 }
 
-export interface ChristmasTownMoneyData {
+export interface Log8940Data { // Christmas town money
 
 }
 
-export interface EasterEggHuntPickupBlueEggLegacyData {
+export interface Log8960Data { // Easter egg hunt pickup blue egg (legacy)
     
 }
 
-export interface CrimeSucessMoneyGainNewData {
+export interface Log9015Data { // Crime success money gain new
 
 }
 
-export interface CrimeSucessBotleggingSellDVDsData {
+export interface Log9052Data { // Crime success bootlegging sell dvds
 
 }
 
-export interface CrimeSucessSkimmingSellCardDetailsData {
+export interface Log9056Data { // Crime success skimming sell card details
 
 }
 
+export interface Log1Data {
+    ipadress: string
+}
 
+export interface Log2Data {
+}
+
+export interface Log3Data {
+}
 
 
 
