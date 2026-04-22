@@ -18,7 +18,6 @@ import {
   getOldestTimestamp,
 } from "@/components/database/LogTimestamp";
 
-// ✅ Korrekte Generic-Syntax
 type UserCreationDateResult = Awaited<ReturnType<typeof getUserCreationDate>>;
 
 let userCreationDateCache: UserCreationDateResult | null = null;
@@ -30,19 +29,52 @@ async function getCachedUserCreationDate() {
   return userCreationDateCache;
 }
 
-interface UseLogsOptions {
-  logsToFetch: number;
-  autoFetch?: boolean; // Optional: automatisch fetchen oder manuell
+// ✅ Cache-Helper für Last Sync Time
+const SYNC_INTERVAL = 15 * 60 * 1000; // 15 Minuten in Millisekunden
+
+function getLastSyncTime(logsToFetch: number): number | null {
+  if (typeof window === "undefined") return null;
+  const stored = localStorage.getItem(`log${logsToFetch}_last_sync`);
+  return stored ? parseInt(stored, 10) : null;
 }
 
-export function useLogs<D, P>({ logsToFetch, autoFetch = true }: UseLogsOptions) {
+function setLastSyncTime(logsToFetch: number): void {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(`log${logsToFetch}_last_sync`, Date.now().toString());
+}
+
+function shouldSync(logsToFetch: number): boolean {
+  const lastSync = getLastSyncTime(logsToFetch);
+  if (!lastSync) return true; // Noch nie gesynct
+  
+  const timeSinceLastSync = Date.now() - lastSync;
+  return timeSinceLastSync >= SYNC_INTERVAL;
+}
+
+interface UseLogsOptions {
+  logsToFetch: number;
+  autoFetch?: boolean;
+  syncInterval?: number; // Optional: Custom interval in Minuten
+}
+
+export function useLogs<D, P>({ 
+  logsToFetch, 
+  autoFetch = true,
+  syncInterval = 15 // Standard: 15 Minuten
+}: UseLogsOptions) {
   const logType = `log${logsToFetch}` as keyof typeof db;
   
   const [logs, setLogs] = useState<TornResponse<UserLogResponse<D, P>> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
 
-  const fetchAndSyncLogs = async () => {
+  const fetchAndSyncLogs = async (force = false) => {
+    // ✅ Skip wenn zu früh (außer force=true)
+    if (!force && !shouldSync(logsToFetch)) {
+      setIsSynced(true);
+      return;
+    }
+
     const toastId = `sync-log${logsToFetch}`;
     setIsLoading(true);
 
@@ -57,13 +89,13 @@ export function useLogs<D, P>({ logsToFetch, autoFetch = true }: UseLogsOptions)
 
       const currentTime = Math.floor(Date.now() / 1000);
 
-      // Keine Logs vorhanden - alles holen
       if (count === 0) {
         toast.loading(`Fetching all logs for log${logsToFetch}...`, { id: toastId });
         const fetchedLogs = await getAllUserLogs<D, P>({ log: [logsToFetch] });
 
         if (isSuccess(fetchedLogs)) {
           await saveLogs(fetchedLogs.data.log);
+          setLastSyncTime(logsToFetch); // ✅ Timestamp setzen
           toast.success(
             `Synced ${fetchedLogs.data.log.length} logs for log${logsToFetch}`,
             { id: toastId, duration: 3000 }
@@ -98,6 +130,7 @@ export function useLogs<D, P>({ logsToFetch, autoFetch = true }: UseLogsOptions)
       const needsUpdate = (checkNewer.data?.log.length ?? 0) > 0;
 
       if (!needsCompletion && !needsUpdate) {
+        setLastSyncTime(logsToFetch); // ✅ Timestamp setzen
         toast.success(`log${logsToFetch} is up to date (${count} logs)`, {
           id: toastId,
           duration: 3000,
@@ -117,6 +150,7 @@ export function useLogs<D, P>({ logsToFetch, autoFetch = true }: UseLogsOptions)
 
         if (isSuccess(fetchedLogs)) {
           await saveLogs(fetchedLogs.data.log);
+          setLastSyncTime(logsToFetch); // ✅ Timestamp setzen
           toast.success(
             `Synced ${fetchedLogs.data.log.length} older logs for log${logsToFetch}`,
             { id: toastId, duration: 3000 }
@@ -140,6 +174,7 @@ export function useLogs<D, P>({ logsToFetch, autoFetch = true }: UseLogsOptions)
 
         if (isSuccess(fetchedLogs)) {
           await saveLogs(fetchedLogs.data.log);
+          setLastSyncTime(logsToFetch); // ✅ Timestamp setzen
           toast.success(
             `Synced ${fetchedLogs.data.log.length} newer logs for log${logsToFetch}`,
             { id: toastId, duration: 3000 }
@@ -182,6 +217,6 @@ export function useLogs<D, P>({ logsToFetch, autoFetch = true }: UseLogsOptions)
     logs,
     isLoading,
     isSynced,
-    refetch: fetchAndSyncLogs,
+    refetch: fetchAndSyncLogs, // Manuell mit force=true: refetch(true)
   };
 }

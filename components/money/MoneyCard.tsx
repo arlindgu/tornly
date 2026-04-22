@@ -4,6 +4,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../../lib/db";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -12,6 +13,9 @@ import {
 import { Log } from "../../lib/api/user/log";
 import { useLogs } from "@/hooks/useLogs";
 import { Skeleton } from "../ui/skeleton";
+import CountUp from "react-countup";
+import { Button } from "../ui/button";
+import { RefreshCcw } from "lucide-react";
 
 export interface MoneyCardProps<D, P> {
   title: string;
@@ -41,20 +45,20 @@ export default function MoneyCard<D, P>({
       return sum + (typeof value === "number" ? value : 0);
     }, 0) || 0;
 
-    if (isLoading) {
-      return (
-        <Card>
-          <CardHeader>
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="h-10 w-1/2 mb-4" />
-            <Skeleton className="h-6 w-1/4" />
-          </CardContent>
-        </Card>
-      );
-    }
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="h-9 w-1/2 mb-4" />
+          <Skeleton className="h-3 w-1/4" />
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -65,13 +69,21 @@ export default function MoneyCard<D, P>({
       <CardContent>
         {!logs ? (
           <>
-            <Skeleton className="h-10 w-1/2 mb-4" />
-            <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-9 w-1/2 mb-4" />
+            <Skeleton className="h-3 w-1/4" />
           </>
         ) : (
           <div>
-            <p className="text-3xl font-bold">${total.toLocaleString()}</p>
-            <p className="text-sm text-gray-500 mt-2">{logs.length} payments</p>
+            <p className="text-3xl font-bold">
+              <CountUp
+                end={total}
+                duration={1.2}
+                separator=","
+                prefix="$"
+                useEasing={true}
+              />
+            </p>
+            <p className="text-sm text-muted-foreground mt-2">{logs.length} payments</p>
           </div>
         )}
       </CardContent>
