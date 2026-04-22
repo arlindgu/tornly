@@ -74,7 +74,7 @@ export default function MoneyCard<D, P>({
           </>
         ) : (
           <div>
-            <p className="text-3xl font-bold">
+            <p key={total} className="text-3xl font-bold [animation:countup-blur_1.2s_ease-out_forwards]">
               <CountUp
                 end={total}
                 duration={1.2}

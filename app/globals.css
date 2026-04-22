@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+@keyframes countup-blur {
+  0%   { filter: blur(8px); }
+  100% { filter: blur(0px); }
+}
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
