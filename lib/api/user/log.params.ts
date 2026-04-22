@@ -22,3 +22,18 @@ export interface MissionsCompleteParams {
 export interface AttackMugParams {
     color: string
 }
+
+export interface MoneyReceiveParams {
+    hideName: [number]
+    italic: number
+    color: string
+}
+
+export interface ItemUseWalletParams {
+    color: string
+}
+
+export interface OffshoreBankInterestParams {
+    italic: number
+    color: string
+}

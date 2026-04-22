@@ -39,3 +39,30 @@ export interface AttackMugData{
     log: string
 }
 
+export interface MoneyReceiveData {
+    sender: number
+    anonymous: number
+    money: number
+    message: string
+}
+
+export interface ItemUseWalletData {
+    item: number
+    faction: number
+    items: ItemUseWalletExtra[]
+    money: number
+}
+
+export interface ItemUseWalletExtra {
+    id: number
+    uid: any
+    qty: number
+}
+
+export interface OffshoreBankInterestData {
+    interest: number
+    balance: number
+}
+
+
+

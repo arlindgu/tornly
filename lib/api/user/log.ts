@@ -51,7 +51,7 @@ export interface UserLogParams {
     from?: number
 }
 
-export default async function getUserLogs<Data, Params>({log, cat, target, limit, to, from}: UserLogParams): Promise<TornResponse<UserLogResponse<Data, Params>>> {
+export async function getUserLogs<Data, Params>({log, cat, target, limit, to, from}: UserLogParams): Promise<TornResponse<UserLogResponse<Data, Params>>> {
     return await tornFetch<UserLogResponse<Data, Params>>({
         endpoint: "user/log"
     }, {log, cat, target, limit, to, from});
@@ -69,8 +69,7 @@ export async function getAllUserLogs<Data, Params>(params: UserLogParams): Promi
     let currentParams = {...params};
 
     while (nextPage) {
-        await new Promise(resolve => setTimeout(resolve, 100/60*1000)); // Delay to respect rate limits
-        const response = await getUserLogs<Data, Params>(currentParams);
+                const response = await getUserLogs<Data, Params>(currentParams);
         if (response.error) {
             return { data: null, error: response.error };
         }
@@ -105,7 +104,7 @@ export async function continueGetAllUserLogsOlder<Data, Params>(
     let currentParams = { ...params };
 
     while (nextPage) {
-        await new Promise(resolve => setTimeout(resolve, 100 / 60 * 1000)); // Delay to respect rate limits
+        
         const response = await getUserLogs<Data, Params>(currentParams);
 
         if (response.error) {
@@ -113,7 +112,6 @@ export async function continueGetAllUserLogsOlder<Data, Params>(
         }
 
         allLogs = allLogs.concat(response.data.log);
-        console.log(`[Older] Fetched ${response.data.log.length} logs, total: ${allLogs.length}`);
 
         if (response.data._metadata.links.prev) {
             const url = new URL(response.data._metadata.links.prev);
@@ -148,7 +146,7 @@ export async function continueGetAllUserLogsNewer<Data, Params>(
     let currentParams = { ...params };
 
     while (nextPage) {
-        await new Promise(resolve => setTimeout(resolve, 100 / 60 * 1000)); // Delay to respect rate limits
+        
         const response = await getUserLogs<Data, Params>(currentParams);
 
         if (response.error) {
@@ -156,7 +154,6 @@ export async function continueGetAllUserLogsNewer<Data, Params>(
         }
 
         allLogs = allLogs.concat(response.data.log);
-        console.log(`[Newer] Fetched ${response.data.log.length} logs, total: ${allLogs.length}`);
 
         if (response.data._metadata.links.next) {  // ← NEXT statt PREV!
             const url = new URL(response.data._metadata.links.next);

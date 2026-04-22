@@ -18,7 +18,7 @@ export default async function DashboardPage() {
 
 
     return (
-      <main className="p-10">
+      <main>
         <GreetingMessage />
         <Suspense fallback={<CardSkeleton />}>
           <section className="flex gap-4 mt-4">

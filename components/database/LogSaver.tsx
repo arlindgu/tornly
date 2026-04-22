@@ -25,9 +25,7 @@ export function LogSaver<D, P>({ logType, logs }: LogSaverProps<D, P>) {
 
         await table.bulkPut(logs);
         setIsSaved(true);
-        console.log(`✅ Saved ${logs.length} logs to ${logType}`);
       } catch (error) {
-        console.error("❌ Error saving to DB:", error);
       }
     }
 

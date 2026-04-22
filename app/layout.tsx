@@ -21,8 +21,9 @@ export default function RootLayout({
       className={`antialiased ${GeistSans.variable} ${GeistPixelSquare.variable} ${GeistMono.variable} dark`}
     >
       <body>
-        <main>{children}</main>
-        <Toaster />
+        <main>{children}
+          <Toaster expand visibleToasts={9}  />
+        </main>
       </body>
     </html>
   );

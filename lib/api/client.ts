@@ -10,15 +10,34 @@ interface TornFetchParams {
     timestamp?: number;
 }
 
+let lastRequestTime = 0;
+let requestQueue: Array<() => void> = []
+let isProcessingQueue = false;
+
+async function waitForRateLimit(rpm: number) {
+    const msPerRequest = 60000 / rpm; // ✅ Korrekte Berechnung
+    const now = Date.now();
+    const timeSinceLastRequest = now - lastRequestTime;
+
+    if (timeSinceLastRequest < msPerRequest) {
+        const waitTime = msPerRequest - timeSinceLastRequest;
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+    }
+
+    lastRequestTime = Date.now();
+}
+
+
 export async function tornFetch<T>(
     baseParams: TornFetchParams = {},
     additionalParams: Record<string, any> = {}
 ): Promise<TornResponse<T>> {
     const cookieStore = await cookies();
     const apiKey = cookieStore.get("tornly:apikey")?.value;
+    const rpm = cookieStore.get("tornly:rpm")?.value;
+    await waitForRateLimit(rpm ? parseInt(rpm) : 50);
 
     const url = new URL(`https://api.torn.com/v2/${baseParams.endpoint}`);
-
     if (baseParams.timestamp) url.searchParams.set("timestamp", baseParams.timestamp.toString());
     if (baseParams.comment) url.searchParams.set("comment", baseParams.comment);
 

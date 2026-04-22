@@ -1,7 +1,7 @@
 import { Dexie, EntityTable } from "dexie";
 import { Log } from "./api/user/log";
-import { AttackMugData, CompanyEmployeePayData, JobPayData, MissionsCompleteData, PointsMarketSellData } from "./api/user/log.data";
-import { AttackMugParams, CompanyEmployeePayParams, JobPayParams, MissionsCompleteParams, PointsMarketSellParams } from "./api/user/log.params";
+import { AttackMugData, CompanyEmployeePayData, ItemUseWalletData, JobPayData, MissionsCompleteData, MoneyReceiveData, OffshoreBankInterestData, PointsMarketSellData } from "./api/user/log.data";
+import { AttackMugParams, CompanyEmployeePayParams, ItemUseWalletParams, JobPayParams, MissionsCompleteParams, MoneyReceiveParams, OffshoreBankInterestParams, PointsMarketSellParams } from "./api/user/log.params";
 
 
 
@@ -11,15 +11,20 @@ const db = new Dexie("TornlyDB:logs") as Dexie & {
     log5011: EntityTable<Log<PointsMarketSellData, PointsMarketSellParams>, "id">;
     log7815: EntityTable<Log<MissionsCompleteData, MissionsCompleteParams>, "id">;
     log8155: EntityTable<Log<AttackMugData, AttackMugParams>, "id">;
+    log4810: EntityTable<Log<MoneyReceiveData, MoneyReceiveParams>, "id">;
+    log2405: EntityTable<Log<ItemUseWalletData, ItemUseWalletParams>, "id">;
+    log6012: EntityTable<Log<OffshoreBankInterestData, OffshoreBankInterestParams>, "id">;
 };
 
-db.version(5).stores({
+db.version(7).stores({
     log6221: "id, timestamp, details.id, data.pay, data.job_points, data.company",
     log6220: "id, timestamp, details.id, data.pay, data.job_points, data.job",
     log5011: "id, timestamp, details.id, data.cost_total, data.cost_each, data.quantity",
     log7815: "id, timestamp, details.id, data.money, data.credits, data.difficulty",
-    log8155: "id, timestamp, details.id, data.defender, data.energy_used, data.money_mugged"
-    
+    log8155: "id, timestamp, details.id, data.defender, data.energy_used, data.money_mugged",
+    log4810: "id, timestamp, details.id, data.sender, data.money, data.anonymous",
+    log2405: "id, timestamp, details.id, data.money, data.items",
+    log6012: "id, timestamp, details.interest, details.balance"
 });
 
 export async function saveToDB<D, P>(

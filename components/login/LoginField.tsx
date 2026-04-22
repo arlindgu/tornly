@@ -1,15 +1,15 @@
 "use client";
 import { Input } from "../ui/input";
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator } from "../ui/field";
+import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSeparator } from "../ui/field";
 import { Button } from "../ui/button";
-import { deleteCookie, getCookie, saveCookie } from "@/lib/cookies";
+import { deleteCookie, getCookie, saveCookie, checkCookieExists } from "@/lib/cookies";
 import getKeyInfo, { checkAPIKey } from "@/lib/api/key/info";
 import {toast} from "sonner";
 import { useEffect, useState } from "react";
 import { isSuccess } from "@/lib/api/errors/errors";
 import { cn } from "@/lib/utils";
 import { Spinner } from "../ui/spinner";
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "../ui/empty";
+import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "../ui/empty";
 import { Check } from "lucide-react";
 
 
@@ -34,10 +34,14 @@ export function LoginForm({
         setLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 500));
 
-      saveCookie(data.get("api-key") as string);
+      saveCookie("tornly:apikey", data.get("api-key") as string);
+
+      if (!await checkCookieExists("tornly:rpm")) {
+        saveCookie("tornly:rpm", "50");
+      }
+
       const response = await getKeyInfo();
 
-      // ✅ Prüfe ob Success
       if (!isSuccess(response)) {
         deleteCookie("tornly:apikey");
         toast.error("Invalid API Key. Please try again.");

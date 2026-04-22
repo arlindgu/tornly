@@ -20,8 +20,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <AppSidebar />
       <SidebarInset>
         <BreadcrumbHeader />
-        <div>{children}</div>
-        <Toaster />
+        <div className="p-6">
+          {children}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
