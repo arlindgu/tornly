@@ -22,7 +22,7 @@ export default function RootLayout({
     >
       <body>
         <main>{children}
-          <Toaster expand visibleToasts={9}  />
+          <Toaster expand visibleToasts={1}  />
         </main>
       </body>
     </html>
