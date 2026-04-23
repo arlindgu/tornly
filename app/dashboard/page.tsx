@@ -24,7 +24,7 @@ export default async function DashboardPage() {
       <main>
         <GreetingMessage />
         <Suspense fallback={<CardSkeleton />}>
-          <section className="flex gap-4 mt-4">
+          <section className="flex flex-col lg:flex-row gap-4 mt-4">
             <BarsCard
               title="Energy"
               Bars={
@@ -87,7 +87,7 @@ export default async function DashboardPage() {
             />
           </section>
         </Suspense>
-        <section className="mt-4 grid-cols-3 grid gap-4">
+        <section className="flex flex-col mt-4 lg:grid-cols-3 lg:grid gap-4">
           <div className="col-span-2">
             <BattlestatsCard />
           </div>

@@ -36,14 +36,10 @@ export default async function BarsCard( props: BarsCardProps) {
             mins
           </p>
         </CardContent>
-        <CardFooter className={cn(`border-${props.color}-500`)} hidden={totalMinutes === 0}>
-          {totalMinutes < 60 ? (
-            <p>Full in: {totalMinutes}m</p>
-          ) : (
+        <CardFooter className={cn(`border-${props.color}-500`)}>
             <p>
               Full in: {hours}h {minutes}m
             </p>
-          )}
         </CardFooter>
       </Card>
     );

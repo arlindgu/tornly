@@ -2,7 +2,8 @@
 
 import { Dexie, EntityTable } from "dexie";
 import { Log } from "./api/user/log";
-import { Log6221Data, Log6220Data, Log5011Data, Log7815Data, Log8155Data, Log4810Data, Log2405Data, Log6012Data, Log3Data, Log1Data, Log2Data, Log1104Data, Log1113Data, Log1221Data, Log1226Data, Log2407Data, Log4210Data, Log4220Data } from "./api/user/log.data";
+import { Log6221Data, Log6220Data, Log5011Data, Log7815Data, Log8155Data, Log4810Data, Log2405Data, Log6012Data, Log1104Data, Log1113Data, Log1221Data, Log1226Data, Log2407Data, Log4210Data, Log4220Data } from "./api/user/log-data/money/incoming.data";
+import { Log1Data, Log2Data, Log3Data } from "./api/user/log-data/system/account.data";
 import { LogParams } from "./api/user/log.params";
 
 const db = new Dexie("TornlyDB:logs") as Dexie & {
