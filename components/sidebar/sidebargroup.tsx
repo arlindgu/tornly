@@ -40,6 +40,10 @@ const sidebarLinks: GroupLink[] = [
       name: "Money",
       href: "/dashboard/money",
     },
+    {
+      name: "Energy",
+      href: "/dashboard/energy",
+    }
 ];
 
 export function SidebarNavigation() {
