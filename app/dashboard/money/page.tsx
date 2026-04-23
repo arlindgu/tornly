@@ -4,7 +4,7 @@ import PageTitle from "@/components/PageTitle";
 import { CardSkeleton } from "@/components/skeleton/CardSkeleton";
 import MoneyCard from "@/components/money/MoneyCard";
 import { LogParams } from "@/lib/api/user/log.params";
-import { Log1104Data, Log1113Data, Log1221Data, Log1226Data, Log2405Data, Log2407Data, Log4210Data, Log4220Data, Log4810Data, Log5011Data, Log6012Data, Log6220Data, Log6221Data, Log7815Data, Log8155Data} from "@/lib/api/user/log.data";
+import { Log1104Data, Log1113Data, Log1221Data, Log1226Data, Log2405Data, Log2407Data, Log4210Data, Log4220Data, Log4810Data, Log5011Data, Log6012Data, Log6220Data, Log6221Data, Log7815Data, Log8155Data} from "@/lib/api/user/log-data/money/incoming.data";
 
 export default function PerformancePage() {
 
@@ -15,7 +15,7 @@ export default function PerformancePage() {
         title="Money"
         description="Check out where your money goes and comes."
       />
-      <section className="flex flex-col lg:grid lg:grid-cols-5 gap-4">
+      <section className="flex flex-col lg:grid lg:grid-cols-3 gap-4">
         <Suspense fallback={<CardSkeleton />}>
           <MoneyCard<Log6221Data, LogParams>
             title="Company Pay"
